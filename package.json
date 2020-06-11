@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@types/cors": "^2.8.6",
+    "@types/yup": "^0.29.2",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
     "cors": "^2.8.5",
@@ -29,7 +30,7 @@
     "express": "^4.17.1",
     "knex": "^0.21.1",
     "prettier": "^2.0.5",
-    "sqlite": "^4.0.10",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^4.2.0",
+    "yup": "^0.29.1"
   }
 }
