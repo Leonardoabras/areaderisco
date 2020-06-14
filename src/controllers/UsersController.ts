@@ -14,6 +14,12 @@ class UsersController {
 
     const user = { name, email, password };
 
+    const emailV = await knex('users').where('email', '=', email);
+
+    if (emailV.length > 0) {
+      return res.status(400).json({ message: 'E-mail ja cadastrado' });
+    }
+
     if (!(await schema.isValid(user))) {
       return res.status(400).json({ message: 'Failed on data validation' });
     }
