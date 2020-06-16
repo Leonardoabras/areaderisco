@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { hash } from 'bcryptjs';
 import * as Yup from 'yup';
 import knex from '../database/connection';
 
@@ -12,21 +13,22 @@ class UsersController {
       password: Yup.string().min(6).required(),
     });
 
-    const user = { name, email, password };
-
     const emailV = await knex('users').where('email', '=', email);
+
+    const user = { name, email, password };
+    if (!(await schema.isValid(user))) {
+      return res.status(404).json({ message: 'Failed on data validation' });
+    }
 
     if (emailV.length > 0) {
       return res.status(400).json({ message: 'E-mail ja cadastrado' });
     }
 
-    if (!(await schema.isValid(user))) {
-      return res.status(400).json({ message: 'Failed on data validation' });
-    }
+    user.password = await hash(password, 8);
 
-    const [id] = await knex('users').insert(user);
+    const userResp = await knex('users').insert(user);
 
-    return res.json(id);
+    return res.json(userResp);
   }
 }
 
