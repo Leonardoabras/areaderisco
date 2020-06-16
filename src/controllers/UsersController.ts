@@ -17,7 +17,7 @@ class UsersController {
 
     const user = { name, email, password };
     if (!(await schema.isValid(user))) {
-      return res.status(404).json({ message: 'Failed on data validation' });
+      return res.status(400).json({ message: 'Failed on data validation' });
     }
 
     if (emailV.length > 0) {
