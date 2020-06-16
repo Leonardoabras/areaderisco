@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import authConfig from '../configuration/auth';
 import knex from '../database/connection';
 
 interface IRequest {
@@ -37,10 +38,14 @@ class SessionController {
         .json({ message: 'Incorrect Email/Password combination' });
     }
 
-    const token = sign({}, '', {});
+    const { secret, expiresIn } = authConfig.jwt;
+    const token = sign({}, secret, {
+      subject: user.id.toString(),
+      expiresIn,
+    });
 
     delete user.password;
-    return res.status(200).json(user);
+    return res.status(200).json({ user, token });
   }
 }
 
