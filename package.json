@@ -8,7 +8,8 @@
   "scripts": {
     "build": "tsc",
     "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node-modules src/server.ts",
-    "knex:migrate": "knex migrate:latest --knexfile knexfile.ts migrate:latest"
+    "knex:migrate": "knex migrate:latest --knexfile knexfile.ts migrate:latest",
+    "knex:seeds": "knex  --knexfile knexfile.ts seed:run"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
