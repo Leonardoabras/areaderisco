@@ -4,6 +4,7 @@ export async function up(knex: Knex) {
   return knex.schema.createTable('locations', table => {
     table.increments('id').primary();
     table.string('risk').notNullable();
+    table.string('local').notNullable();
     table.decimal('latitude').notNullable();
     table.decimal('longitude').notNullable();
   });

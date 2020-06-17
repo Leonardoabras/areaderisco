@@ -4,15 +4,16 @@ import knex from '../database/connection';
 
 class UsersController {
   async create(req: Request, res: Response) {
-    const { risk, latitude, longitude } = req.body;
+    const { risk, latitude, longitude, local } = req.body;
 
     const schema = Yup.object().shape({
       risk: Yup.string().required(),
       latitude: Yup.number().required(),
       longitude: Yup.number().required(),
+      local: Yup.string().required(),
     });
 
-    const location = { risk, latitude, longitude };
+    const location = { risk, latitude, longitude, local };
 
     if (!(await schema.isValid(location))) {
       return res.status(400).json({ message: 'Failed on data validation' });
